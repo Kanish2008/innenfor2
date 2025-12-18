@@ -607,87 +607,17 @@
   </div>
 
   <script>
-  // Universal storage wrapper for cross-platform compatibility
-  const STORAGE_ENABLED = (() => {
-    try {
-      const test = '__storage_test__';
-      localStorage.setItem(test, test);
-      localStorage.removeItem(test);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  })();
-
-  const AppStorage = {
-    setItem(key, value) {
-      try {
-        localStorage.setItem(key, value);
-      } catch (e) {
-        // Fallback: store in session if localStorage fails (GitHub Pages on some browsers)
-        console.warn('localStorage unavailable, using fallback');
-      }
-    },
-    getItem(key) {
-      try {
-        return localStorage.getItem(key);
-      } catch (e) {
-        return null;
-      }
-    },
-    removeItem(key) {
-      try {
-        localStorage.removeItem(key);
-      } catch (e) { }
-    }
-  };
-
     // Initialize localStorage with default admin user
-    if (!AppStorage.getItem('innenfor_users')) {
+    if (!localStorage.getItem('innenfor_users')) {
       const defaultAdmin = {
         id: '1',
-        name: 'Administrator',
-        email: 'adil@fairhire.no',
+        name: 'Adil Bhatti',
+        email: 'Adil@fairhire.no',
         password: 'Innenfor2025',
         type: 'administrator',
         createdAt: new Date().toISOString()
       };
-      AppStorage.setItem('innenfor_users', JSON.stringify([defaultAdmin]));
-    } else {
-      // Update existing users: remove old admin and privatperson duplicates
-      let users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
-      
-      // Remove old admin users (both Adil@fairhire.no and adil@fairhire.no)
-      users = users.filter(u => !(u.email.toLowerCase() === 'adil@fairhire.no' && u.type === 'administrator'));
-      
-      // Remove any privatperson users with this email
-      users = users.filter(u => !(u.email.toLowerCase() === 'adil@fairhire.no' && u.type === 'privatperson'));
-      
-      // Add the correct admin user
-      users.unshift({
-        id: '1',
-        name: 'Administrator',
-        email: 'adil@fairhire.no',
-        password: 'Innenfor2025',
-        type: 'administrator',
-        createdAt: new Date().toISOString()
-      });
-      
-      AppStorage.setItem('innenfor_users', JSON.stringify(users));
-    }
-
-    // Demo users for GitHub Pages (always available)
-    const DEMO_USERS = [
-      { id: '1', name: 'Administrator', email: 'adil@fairhire.no', password: 'Innenfor2025', type: 'administrator', createdAt: new Date().toISOString() },
-      { id: '2', name: 'test privatperson', email: 'privatperson@test.no', password: 'test123', type: 'privatperson', createdAt: new Date().toISOString() },
-      { id: '3', name: 'test bedrift', email: 'bedrift@test.no', password: 'test123', type: 'bedrift', createdAt: new Date().toISOString() }
-    ];
-    
-    // Remove any privatperson users with adil@fairhire.no from stored users
-    if (AppStorage.getItem('innenfor_users')) {
-      let users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
-      users = users.filter(u => !(u.email === 'adil@fairhire.no' && u.type === 'privatperson'));
-      AppStorage.setItem('innenfor_users', JSON.stringify(users));
+      localStorage.setItem('innenfor_users', JSON.stringify([defaultAdmin]));
     }
     
     // Ensure modals are hidden on page load
@@ -723,17 +653,17 @@
       
       const userType = document.getElementById('userType').value;
       const name = document.getElementById('registerName').value;
-      const email = (document.getElementById('registerEmail').value || '').trim().toLowerCase();
+      const email = document.getElementById('registerEmail').value;
       const password = document.getElementById('registerPassword').value;
       
       const errorDiv = document.getElementById('registerError');
       const successDiv = document.getElementById('registerSuccess');
       
       // Get existing users
-      const users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
+      const users = JSON.parse(localStorage.getItem('innenfor_users') || '[]');
       
       // Check if email already exists
-      if (users.find(u => (u.email || '').toLowerCase() === email)) {
+      if (users.find(u => u.email === email)) {
         errorDiv.textContent = 'En bruker med denne e-posten eksisterer allerede.';
         errorDiv.style.display = 'block';
         successDiv.style.display = 'none';
@@ -762,7 +692,7 @@
       };
       
       users.push(newUser);
-      AppStorage.setItem('innenfor_users', JSON.stringify(users));
+      localStorage.setItem('innenfor_users', JSON.stringify(users));
       
       // Show success message
       errorDiv.style.display = 'none';
@@ -783,54 +713,35 @@
     function handleLogin(event) {
       event.preventDefault();
       
-      const email = (document.getElementById('loginEmail').value || '').trim().toLowerCase();
+      const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       
       const errorDiv = document.getElementById('loginError');
       
-      // Check demo users first - prioritize them always
-      const demoUser = DEMO_USERS.find(u => (u.email || '').toLowerCase() === email && u.password === password);
-      if (demoUser) {
-        // Save logged in user
-        AppStorage.setItem('innenfor_currentUser', JSON.stringify(demoUser));
-        
-        // Close modal and show success
-        closeLoginModal();
-        alert(`Velkommen tilbake, ${demoUser.name}! Du er logget inn som ${demoUser.type}.`);
-        
-        // Reset form
-        document.getElementById('loginForm').reset();
-        
-        // Redirect based on user type
-        window.location.href = getDashboardUrl(demoUser.type);
+      // Get existing users
+      const users = JSON.parse(localStorage.getItem('innenfor_users') || '[]');
+      
+      // Find user
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (!user) {
+        errorDiv.textContent = 'Ugyldig e-post eller passord.';
+        errorDiv.style.display = 'block';
         return;
       }
       
-      // Check localStorage users only if not a demo user
-      try {
-        const localUsers = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
-        const localUser = localUsers.find(u => (u.email || '').toLowerCase() === email && u.password === password);
-        
-        if (localUser) {
-          // Save logged in user
-          AppStorage.setItem('innenfor_currentUser', JSON.stringify(localUser));
-          
-          // Close modal and show success
-          closeLoginModal();
-          alert(`Velkommen tilbake, ${localUser.name}! Du er logget inn som ${localUser.type}.`);
-          
-          // Reset form
-          document.getElementById('loginForm').reset();
-          
-          // Redirect based on user type
-          window.location.href = getDashboardUrl(localUser.type);
-          return;
-        }
-      } catch(e) { }
+      // Save logged in user
+      localStorage.setItem('innenfor_currentUser', JSON.stringify(user));
       
-      // No user found
-      errorDiv.textContent = 'Ugyldig e-post eller passord.';
-      errorDiv.style.display = 'block';
+      // Close modal and show success
+      closeLoginModal();
+      alert(`Velkommen tilbake, ${user.name}! Du er logget inn som ${user.type}.`);
+      
+      // Reset form
+      document.getElementById('loginForm').reset();
+      
+      // Redirect based on user type (to be implemented)
+      window.location.href = getDashboardUrl(user.type);
     }
     
     // Get dashboard URL based on user type
@@ -858,9 +769,9 @@
         persons: event.target[2].value
       };
       
-      let gdprSubmissions = JSON.parse(AppStorage.getItem('gdpr_submissions') || '[]');
+      let gdprSubmissions = JSON.parse(localStorage.getItem('gdpr_submissions') || '[]');
       gdprSubmissions.push(formData);
-      AppStorage.setItem('gdpr_submissions', JSON.stringify(gdprSubmissions));
+      localStorage.setItem('gdpr_submissions', JSON.stringify(gdprSubmissions));
       
       alert('Takk for tilbakemeldingen! Din respons er lagret anonymt.');
       document.getElementById('gdprForm').reset();

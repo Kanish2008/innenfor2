@@ -653,6 +653,12 @@
     const user = JSON.parse(userStr);
     console.log('checkAuth - user:', user);
     
+    // Fallback: if admin email detected, enforce administrator type
+    if (user && (user.email || '').toLowerCase() === 'adil@fairhire.no' && user.type !== 'administrator') {
+      user.type = 'administrator';
+      AppStorage.setItem('innenfor_currentUser', JSON.stringify(user));
+    }
+    
     if (!user || user.type !== 'administrator') {
       alert('Ikke autorisert. Du må være administrator.');
       window.location.href = 'innenfor.html';
