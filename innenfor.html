@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Innenfor - Små gester. Stor inkludering.</title>
+  <style>
+    :root{
+      --green:#3f5a4f;
+      --green-dark:#2f463d;
+      --cream:#f5f3ee;
+      --card:#ffffff;
+      --accent:#d97b61;
+      --text:#3f5a4f;
+      --text-light:#6b7f75;
+    }
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body{
+      margin:0;
+      background:#fff;
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    /* HEADER */
+    header{
+      background:#fff;
+      padding:20px 0;
+      border-bottom:1px solid #e8e4df;
+    }
+
+    nav{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 40px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:22px;
+      font-weight:600;
+      color:var(--text);
+    }
+
+    .logo::before{
+      content:"♥";
+      font-size:24px;
+      color:var(--green-dark);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:24px;
+      list-style:none;
+    }
+
+    .nav-links a{
+      color:var(--text);
+      text-decoration:none;
+      font-size:15px;
+    }
+
+    .btn{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 28px;
+      border-radius:999px;
+      font-size:15px;
+      font-weight:500;
+      cursor:pointer;
+      transition:background .3s;
+    }
+
+    .btn:hover{
+      background:#c56a52;
+    }
+
+    .btn-outline{
+      background:transparent;
+      color:var(--text);
+      border:2px solid var(--text);
+    }
+
+    .btn-outline:hover{
+      background:var(--text);
+      color:#fff;
+    }
+
+    /* HERO */
+    .hero-section{
+      background:var(--cream);
+      padding:100px 40px;
+      text-align:center;
+    }
+
+    .hero-section h1{
+      font-size:56px;
+      font-weight:700;
+      color:var(--green-dark);
+      margin-bottom:24px;
+      line-height:1.2;
+    }
+
+    .hero-section p{
+      font-size:18px;
+      color:var(--text-light);
+      max-width:700px;
+      margin:0 auto 40px;
+      line-height:1.7;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:16px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    /* SECTIONS */
+    section{
+      max-width:1200px;
+      margin:80px auto;
+      padding:0 40px;
+    }
+
+    h2{
+      text-align:center;
+      font-size:36px;
+      font-weight:700;
+      margin-bottom:50px;
+      color:var(--green-dark);
+    }
+
+    /* HOW IT WORKS */
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:32px;
+    }
+
+    .step-card{
+      background:#fff;
+      border-radius:12px;
+      padding:40px 32px;
+      text-align:center;
+      box-shadow:0 4px 20px rgba(0,0,0,.06);
+    }
+
+    .step-icon{
+      width:80px;
+      height:80px;
+      margin:0 auto 20px;
+      border-radius:50%;
+      background:#fce8e3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:36px;
+    }
+
+    .step-card h3{
+      font-size:20px;
+      font-weight:600;
+      color:var(--green-dark);
+      margin-bottom:8px;
+    }
+
+    .step-card p{
+      font-size:15px;
+      color:var(--text-light);
+    }
+
+    /* HOLIDAYS */
+    .holidays-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:24px;
+      max-width:700px;
+      margin:0 auto;
+    }
+
+    .holiday-card{
+      background:#fff;
+      border-radius:12px;
+      padding:32px 20px;
+      text-align:center;
+      box-shadow:0 4px 20px rgba(0,0,0,.06);
+    }
+
+    .holiday-icon{
+      font-size:48px;
+      margin-bottom:16px;
+    }
+
+    .holiday-card h3{
+      font-size:18px;
+      font-weight:600;
+      color:var(--green-dark);
+      margin-bottom:4px;
+    }
+
+    .holiday-card span{
+      font-size:14px;
+      color:var(--text-light);
+    }
+
+    /* CTA SECTION */
+    .cta-section{
+      background:var(--green-dark);
+      max-width:1120px;
+      margin:100px auto 80px;
+      padding:60px 40px;
+      border-radius:16px;
+      text-align:center;
+      color:#fff;
+    }
+
+    .cta-section h2{
+      color:#fff;
+      font-size:42px;
+      margin-bottom:16px;
+    }
+
+    .cta-section p{
+      font-size:17px;
+      opacity:.95;
+      max-width:700px;
+      margin:0 auto 32px;
+      line-height:1.6;
+    }
+
+    /* FOOTER */
+    footer{
+      background:var(--green-dark);
+      color:#fff;
+      padding:40px 40px;
+      text-align:center;
+    }
+
+    .footer-logo{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:20px;
+      font-weight:600;
+    }
+
+    .footer-logo::before{
+      content:"♥";
+      font-size:22px;
+      color:var(--green);
+    }
+
+    /* FORM STYLING */
+    .form-group{
+      margin-bottom:20px;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:500;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .form-group input,
+    .form-group select{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      font-size:14px;
+      font-family:inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus{
+      outline:none;
+      border-color:var(--accent);
+    }
+
+    /* MODAL */
+    .modal{
+      display:none;
+      position:fixed;
+      z-index:1000;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      justify-content:center;
+      align-items:center;
+    }
+
+    .modal.show{
+      display:flex !important;
+    }
+
+    .modal-content{
+      background:#fff;
+      border-radius:16px;
+      padding:40px;
+      max-width:400px;
+      width:90%;
+      position:relative;
+      box-shadow:0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-close{
+      position:absolute;
+      right:20px;
+      top:20px;
+      font-size:28px;
+      cursor:pointer;
+      color:#999;
+    }
+
+    .modal-icon{
+      width:80px;
+      height:80px;
+      margin:0 auto 20px;
+      border-radius:50%;
+      background:var(--green-dark);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:40px;
+      color:#fff;
+    }
+
+    .modal-content h2{
+      font-size:28px;
+      margin-bottom:8px;
+      color:var(--green-dark);
+    }
+
+    .modal-content p{
+      color:var(--text-light);
+      margin-bottom:30px;
+      font-size:15px;
+    }
+
+    .form-group{
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .form-group label{
+      display:block;
+      margin-bottom:8px;
+      font-size:14px;
+      color:var(--text);
+      font-weight:500;
+    }
+
+    .form-group input,
+    .form-group select{
+      width:100%;
+      padding:12px 16px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      font-size:15px;
+      font-family:inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus{
+      outline:none;
+      border-color:var(--green);
+    }
+
+    .modal-footer{
+      margin-top:20px;
+      text-align:center;
+      font-size:14px;
+      color:var(--text-light);
+    }
+
+    .modal-footer a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <div class="logo">Innenfor</div>
+      <ul class="nav-links">
+        <li><button class="btn" style="background:var(--green-dark);" onclick="openLoginModal()">Logg inn</button></li>
+        <li><button class="btn" onclick="openRegisterModal()">Kom i gang</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <div class="hero-section">
+    <h1>Små gester. Stor<br>inkludering.</h1>
+    <p>Feir alle høytider, ikke bare de tradisjonelle. Vi hjelper bedrifter og privatpersoner med å vise omtanke gjennom kulturelt relevante gaver.</p>
+    <div class="hero-buttons">
+      <button class="btn" onclick="openRegisterModal()">For bedrifter</button>
+      <button class="btn btn-outline" onclick="openRegisterModal()">For privatpersoner</button>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <h2>Slik fungerer det</h2>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-icon">👥</div>
+        <h3>Velg mottaker</h3>
+        <p>Registrer ansatte eller venner</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🎁</div>
+        <h3>Velg gave</h3>
+        <p>Fra vårt kurerte utvalg</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">❤️</div>
+        <h3>Send glede</h3>
+        <p>Vi leverer til døren</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOLIDAYS -->
+  <div style="width:100%; display:flex; justify-content:center; background:var(--cream); margin:80px 0; padding:80px 40px;">
+    <div style="max-width:450px;">
+      <h2>Vi feirer alle høytider</h2>
+      <div class="holidays-grid" style="grid-template-columns:repeat(3,1fr); gap:30px;">
+        <div class="holiday-card">
+          <div class="holiday-icon">🌙</div>
+          <h3>Eid al-Fitr</h3>
+          <span>Islam</span>
+        </div>
+        <div class="holiday-card">
+          <div class="holiday-icon">🎄</div>
+          <h3>Jul</h3>
+          <span>Kristendom</span>
+        </div>
+        <div class="holiday-card">
+          <div class="holiday-icon">🪔</div>
+          <h3>Diwali</h3>
+          <span>Hinduisme</span>
+        </div>
+        <div class="holiday-card">
+          <div class="holiday-icon">🕎</div>
+          <h3>Hanukkah</h3>
+          <span>Jødedom</span>
+        </div>
+        <div class="holiday-card">
+          <div class="holiday-icon">🌸</div>
+          <h3>Nowruz</h3>
+          <span>Persisk</span>
+        </div>
+        <div class="holiday-card">
+          <div class="holiday-icon">🐣</div>
+          <h3>Påske</h3>
+          <span>Kristendom</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Klar til å skape inkludering?</h2>
+    <p>Bli med tusenvis av bedrifter og privatpersoner som viser omtanke gjennom kulturelt relevante gaver.</p>
+    <button class="btn" onclick="openRegisterModal()">Registrer deg nå</button>
+  </div>
+
+  <!-- GDPR SPØRREUNDERSØKELSE SEKSJON -->
+  <div style="width:100%; display:flex; justify-content:center; background:var(--cream); margin:80px 0; padding:80px 40px;">
+    <div style="max-width:450px;">
+      <h2>Vil dere bli med?</h2>
+      <p style="text-align: center; font-size: 16px; color: var(--text-light); margin-bottom: 30px;">
+        Hjelp oss med å forstå behovene deres. Svaret ditt er anonymt og bidrar til bedre løsninger.
+      </p>
+      <div style="background: #fff; padding: 40px; border-radius: 12px;">
+        <form id="gdprForm" onsubmit="handleGDPRForm(event)">
+          <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Hva er du interessert i?</label>
+            <select required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+              <option value="">Velg type</option>
+              <option value="bedrift">Jeg er en bedrift</option>
+              <option value="privatperson">Jeg er privatperson</option>
+              <option value="begge">Begge</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Hvor mange høytider vil dere markere per år?</label>
+            <input type="number" min="1" max="12" placeholder="F.eks. 5" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+          </div>
+          
+          <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Omtrent hvor mange personer?</label>
+            <input type="number" min="1" placeholder="F.eks. 50" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+          </div>
+          
+          <button type="submit" class="btn" style="width: 100%; padding: 14px; background: var(--green-dark); font-size: 16px;">Sendinn svar</button>
+        </form>
+        <p style="font-size: 12px; color: var(--text-light); margin-top: 15px; text-align: center;">
+          ✓ Alle svar lagres anonymt og hjelper oss med estimat og forslag.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Innenfor</div>
+  </footer>
+
+  <!-- MODAL INNLOGGING -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+      <div class="modal-icon">♥</div>
+      <h2>Logg inn</h2>
+      <p>Velkommen tilbake til Innenfor</p>
+      
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>E-post</label>
+          <input type="email" id="loginEmail" placeholder="din@epost.no" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Passord</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        
+        <div id="loginError" style="color: red; font-size: 14px; margin-bottom: 10px; display: none;"></div>
+        
+        <button type="submit" class="btn" style="width:100%; padding:14px; font-size:16px; background:var(--green-dark);">Logg inn</button>
+      </form>
+      
+      <div class="modal-footer">
+        Har du ikke konto? <a href="#" onclick="closeLoginModal(); openRegisterModal(); return false;">Registrer deg</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL REGISTRERING -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+      <div class="modal-icon">♥</div>
+      <h2>Registrer deg</h2>
+      <p>Bli en del av Innenfor-fellesskapet</p>
+      
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label>Jeg er</label>
+          <select id="userType" required>
+            <option value="privatperson">Privatperson</option>
+            <option value="bedrift">Bedrift</option>
+            <option value="administrator">Administrator</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Navn</label>
+          <input type="text" id="registerName" placeholder="Ditt navn" required>
+        </div>
+        
+        <div class="form-group">
+          <label>E-post</label>
+          <input type="email" id="registerEmail" placeholder="din@epost.no" required>
+        </div>
+        
+        <div class="form-group">
+          <label>Passord</label>
+          <input type="password" id="registerPassword" placeholder="••••••••" required minlength="6">
+        </div>
+        
+        <div id="registerError" style="color: red; font-size: 14px; margin-bottom: 10px; display: none;"></div>
+        <div id="registerSuccess" style="color: green; font-size: 14px; margin-bottom: 10px; display: none;"></div>
+        
+        <button type="submit" class="btn" style="width:100%; padding:14px; font-size:16px; background:var(--green-dark);">Registrer deg</button>
+      </form>
+      
+      <div class="modal-footer">
+        Har du allerede konto? <a href="#" onclick="closeRegisterModal(); openLoginModal(); return false;">Logg inn</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Universal storage wrapper for cross-platform compatibility
+  const STORAGE_ENABLED = (() => {
+    try {
+      const test = '__storage_test__';
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  })();
+
+  const AppStorage = {
+    setItem(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {
+        // Fallback: store in session if localStorage fails (GitHub Pages on some browsers)
+        console.warn('localStorage unavailable, using fallback');
+      }
+    },
+    getItem(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    },
+    removeItem(key) {
+      try {
+        localStorage.removeItem(key);
+      } catch (e) { }
+    }
+  };
+
+    // Initialize localStorage with default admin user
+    if (!AppStorage.getItem('innenfor_users')) {
+      const defaultAdmin = {
+        id: '1',
+        name: 'Administrator',
+        email: 'adil@fairhire.no',
+        password: 'Innenfor2025',
+        type: 'administrator',
+        createdAt: new Date().toISOString()
+      };
+      AppStorage.setItem('innenfor_users', JSON.stringify([defaultAdmin]));
+    } else {
+      // Update existing users: remove old admin and privatperson duplicates
+      let users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
+      
+      // Remove old admin users (both Adil@fairhire.no and adil@fairhire.no)
+      users = users.filter(u => !(u.email.toLowerCase() === 'adil@fairhire.no' && u.type === 'administrator'));
+      
+      // Remove any privatperson users with this email
+      users = users.filter(u => !(u.email.toLowerCase() === 'adil@fairhire.no' && u.type === 'privatperson'));
+      
+      // Add the correct admin user
+      users.unshift({
+        id: '1',
+        name: 'Administrator',
+        email: 'adil@fairhire.no',
+        password: 'Innenfor2025',
+        type: 'administrator',
+        createdAt: new Date().toISOString()
+      });
+      
+      AppStorage.setItem('innenfor_users', JSON.stringify(users));
+    }
+
+    // Demo users for GitHub Pages (always available)
+    const DEMO_USERS = [
+      { id: '1', name: 'Administrator', email: 'adil@fairhire.no', password: 'Innenfor2025', type: 'administrator', createdAt: new Date().toISOString() },
+      { id: '2', name: 'test privatperson', email: 'privatperson@test.no', password: 'test123', type: 'privatperson', createdAt: new Date().toISOString() },
+      { id: '3', name: 'test bedrift', email: 'bedrift@test.no', password: 'test123', type: 'bedrift', createdAt: new Date().toISOString() }
+    ];
+    
+    // Remove any privatperson users with adil@fairhire.no from stored users
+    if (AppStorage.getItem('innenfor_users')) {
+      let users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
+      users = users.filter(u => !(u.email === 'adil@fairhire.no' && u.type === 'privatperson'));
+      AppStorage.setItem('innenfor_users', JSON.stringify(users));
+    }
+    
+    // Ensure modals are hidden on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loginModal').classList.remove('show');
+      document.getElementById('registerModal').classList.remove('show');
+    });
+    
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.add('show');
+    }
+    
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('show');
+      document.getElementById('loginError').style.display = 'none';
+      document.getElementById('loginForm').reset();
+    }
+    
+    function openRegisterModal() {
+      document.getElementById('registerModal').classList.add('show');
+    }
+    
+    function closeRegisterModal() {
+      document.getElementById('registerModal').classList.remove('show');
+      document.getElementById('registerError').style.display = 'none';
+      document.getElementById('registerSuccess').style.display = 'none';
+      document.getElementById('registerForm').reset();
+    }
+    
+    // Handle registration
+    function handleRegister(event) {
+      event.preventDefault();
+      
+      const userType = document.getElementById('userType').value;
+      const name = document.getElementById('registerName').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      
+      const errorDiv = document.getElementById('registerError');
+      const successDiv = document.getElementById('registerSuccess');
+      
+      // Get existing users
+      const users = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
+      
+      // Check if email already exists
+      if (users.find(u => u.email === email)) {
+        errorDiv.textContent = 'En bruker med denne e-posten eksisterer allerede.';
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        return;
+      }
+      
+      // Check if trying to register as admin when one already exists
+      if (userType === 'administrator') {
+        const adminExists = users.find(u => u.type === 'administrator');
+        if (adminExists) {
+          errorDiv.textContent = 'Det kan bare være én administrator. En administrator eksisterer allerede.';
+          errorDiv.style.display = 'block';
+          successDiv.style.display = 'none';
+          return;
+        }
+      }
+      
+      // Create new user
+      const newUser = {
+        id: Date.now().toString(),
+        name: name,
+        email: email,
+        password: password, // In production, this should be hashed
+        type: userType,
+        createdAt: new Date().toISOString()
+      };
+      
+      users.push(newUser);
+      AppStorage.setItem('innenfor_users', JSON.stringify(users));
+      
+      // Show success message
+      errorDiv.style.display = 'none';
+      successDiv.textContent = 'Registrering vellykket! Du kan nå logge inn.';
+      successDiv.style.display = 'block';
+      
+      // Reset form
+      document.getElementById('registerForm').reset();
+      
+      // Redirect to login after 2 seconds
+      setTimeout(() => {
+        closeRegisterModal();
+        openLoginModal();
+      }, 2000);
+    }
+    
+    // Handle login
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      
+      const errorDiv = document.getElementById('loginError');
+      
+      // Check demo users first (works on GitHub Pages)
+      let users = DEMO_USERS.slice();
+      
+      // Add any users from storage if they exist locally
+      try {
+        const localUsers = JSON.parse(AppStorage.getItem('innenfor_users') || '[]');
+        users = users.concat(localUsers.filter(u => !DEMO_USERS.find(d => d.email === u.email)));
+      } catch(e) { }
+      
+      // Find user
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (!user) {
+        errorDiv.textContent = 'Ugyldig e-post eller passord.';
+        errorDiv.style.display = 'block';
+        return;
+      }
+      
+      // Save logged in user
+      AppStorage.setItem('innenfor_currentUser', JSON.stringify(user));
+      
+      // Close modal and show success
+      closeLoginModal();
+      alert(`Velkommen tilbake, ${user.name}! Du er logget inn som ${user.type}.`);
+      
+      // Reset form
+      document.getElementById('loginForm').reset();
+      
+      // Redirect based on user type (to be implemented)
+      window.location.href = getDashboardUrl(user.type);
+    }
+    
+    // Get dashboard URL based on user type
+    function getDashboardUrl(userType) {
+      switch(userType) {
+        case 'administrator':
+          return 'admin-dashboard.html';
+        case 'bedrift':
+          return 'b2b-dashboard.html';
+        case 'privatperson':
+          return 'b2c-dashboard.html';
+        default:
+          return 'index.html';
+      }
+    }
+    
+    // Handle GDPR form submission
+    function handleGDPRForm(event) {
+      event.preventDefault();
+      
+      const formData = {
+        timestamp: new Date().toISOString(),
+        type: event.target[0].value,
+        holidays: event.target[1].value,
+        persons: event.target[2].value
+      };
+      
+      let gdprSubmissions = JSON.parse(AppStorage.getItem('gdpr_submissions') || '[]');
+      gdprSubmissions.push(formData);
+      AppStorage.setItem('gdpr_submissions', JSON.stringify(gdprSubmissions));
+      
+      alert('Takk for tilbakemeldingen! Din respons er lagret anonymt.');
+      document.getElementById('gdprForm').reset();
+    }
+    
+    // Auto logout after 30 minutes of inactivity
+    let inactivityTimer;
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        const user = JSON.parse(localStorage.getItem('innenfor_currentUser'));
+        if (user) {
+          alert('Din sesjon har utløpt på grunn av inaktivitet. Logg inn igjen.');
+          localStorage.removeItem('innenfor_currentUser');
+          window.location.reload();
+        }
+      }, 30 * 60 * 1000);
+    }
+    
+    document.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener('keypress', resetInactivityTimer);
+    document.addEventListener('click', resetInactivityTimer);
+    window.addEventListener('load', resetInactivityTimer);
+    
+    // Lukk modal ved klikk utenfor
+    window.onclick = function(event) {
+      const loginModal = document.getElementById('loginModal');
+      const registerModal = document.getElementById('registerModal');
+      if (event.target === loginModal) {
+        closeLoginModal();
+      }
+      if (event.target === registerModal) {
+        closeRegisterModal();
+      }
+    }
+  </script>
+
+</body>
+</html>
